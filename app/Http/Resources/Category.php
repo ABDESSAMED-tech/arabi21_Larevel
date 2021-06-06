@@ -14,11 +14,12 @@ class Category extends JsonResource
      */
     public function toArray($request)
     {
+
         return [
             'id'=>$this->id,
             'title'=>$this->name,
             'image'=>$this->image,
-            'children'=> self::collection($this->children),
+            'children'=> $this->children,
         ];
     }
 }

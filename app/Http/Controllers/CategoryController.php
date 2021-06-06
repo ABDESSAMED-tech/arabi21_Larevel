@@ -12,9 +12,12 @@ class CategoryController extends Controller
     {
 
         $categories = Category::whereNull('parent_id')
+            ->with('children')
             ->orderBy('order', 'asc')
             ->get();
-
-        return new CategoryCollection($categories);
+        return [
+            "data" => $categories
+       ];
+        // return new CategoryCollection($categories);
     }
 }
