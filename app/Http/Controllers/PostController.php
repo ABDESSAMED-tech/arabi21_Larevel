@@ -9,6 +9,7 @@ use App\Models\Post;
 use Illuminate\Support\Facades\View;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\DB;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class PostController extends Controller
 {
@@ -16,7 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = QueryBuilder::for(Post::class)
-            ->allowedFilters(['title', 'content', 'author'])
+            ->allowedFilters(['title', 'content', 'author', AllowedFilter::exact('category_id')])
             ->orderBy("id", "DESC")
             ->cursorPaginate(15);
         return new PostCollection($posts->items());
