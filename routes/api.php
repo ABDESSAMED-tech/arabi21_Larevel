@@ -15,8 +15,24 @@ use Illuminate\Support\Facades\Route;
 */
 
 
- Route::post('/register', 'UsersController@register');
-    Route::post('/login', 'UsersController@login');
-    Route::get('/logout', 'UsersController@logout')->middleware('auth:api');
+Route::post('/register', 'UsersController@register');
+Route::post('/login', 'UsersController@login');
+Route::get('/logout', 'UsersController@logout')->middleware('auth:api');
 
-    
+Route::get('/', function () {
+    return [
+        "version" => config("settings.app.version")
+    ];
+});
+
+Route::fallback(function () {
+    return response()->json([
+        "error" => [
+            'status' => 404,
+            'title'  => 'Invalid endpoint',
+            'detail' => 'Resource not found'
+        ]
+    ]);
+});
+Route::apiResource('posts', 'PostController');
+Route::apiResource('categories', 'CategoryController');
