@@ -8,6 +8,7 @@ use App\Http\Resources\PostCollection;
 use App\Models\Post;
 use Illuminate\Support\Facades\View;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -16,10 +17,10 @@ class PostController extends Controller
     {
         $posts = QueryBuilder::for(Post::class)
             ->allowedFilters(['title', 'content', 'author'])
-            ->latest("published_on")
+            ->latest("id")
             ->paginate()
             ->appends(request()->query());
-        return new PostCollection($posts);
+        return new PostCollection($posts->items());
     }
     public function create()
     {
