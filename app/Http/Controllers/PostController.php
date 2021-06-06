@@ -17,9 +17,8 @@ class PostController extends Controller
     {
         $posts = QueryBuilder::for(Post::class)
             ->allowedFilters(['title', 'content', 'author'])
-            ->latest("id")
-            ->paginate()
-            ->appends(request()->query());
+            ->orderBy("id", "DESC")
+            ->cursorPaginate(15);
         return new PostCollection($posts->items());
     }
     public function create()
