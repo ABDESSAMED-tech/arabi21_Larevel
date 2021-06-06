@@ -19,6 +19,6 @@ class Post extends Model
         if (Str::contains($value, "http")) {
             return $value;
         }
-        return 'https://arabi21.com/Content/Upload/large/' . $value;
+        return config("settings.app.uploads") . $value;
     }
 }
