@@ -36,3 +36,5 @@ Route::fallback(function () {
 });
 Route::apiResource('posts', 'PostController');
 Route::apiResource('categories', 'CategoryController');
+Route::apiResource('videos', 'VideoController')->only(['index', 'show']);
+Route::apiResource('programs', 'ProgramController')->only(['index', 'show']);
