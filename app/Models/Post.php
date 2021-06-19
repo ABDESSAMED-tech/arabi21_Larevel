@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -20,5 +21,21 @@ class Post extends Model
             return $value;
         }
         return config("settings.app.uploads") . $value;
+    }
+
+    public function users(){
+        return $this->belongsToMany(User::class, 'favorites', 'user_id', 'post_id')->withTimeStamps();
+    }
+
+    public function getFavAttribute()
+    {
+        if(!Auth::check()){
+            return false;
+        }
+
+        return $this->belongsToMany(User::class, 'favorites', 'user_id', 'post_id')
+        ->withTimestamps()
+        ->where('user_id', Auth::user()->id)
+        ->first();
     }
 }

@@ -24,6 +24,7 @@ class Post extends JsonResource
             'image'=>$this->img,
             'category'=> $this->category,
             'published_on'=>$this->published_on,
+            'favourite' => $this->fav,
         ];
     }
 }

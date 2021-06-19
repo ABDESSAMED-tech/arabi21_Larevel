@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Post as PostResource;
 use App\Http\Resources\PostCollection;
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\DB;
@@ -32,4 +34,31 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         return new PostResource($post);
     }
+    public function favoritePost(Request $request)
+    {
+        $success = false;
+        if($request->filled('user_id') && $request->filled('post_id')){
+            $user = User::findOrFail(request()->user_id);
+            $post = Post::findOrFail(request()->user_id);
+            $user->favorites()->syncWithoutDetaching($post->id);
+            $success = true;
+        }
+        return [
+            "success" => $success,
+        ];
+    }
+    public function unfavoritePost(Request $request)
+    {
+        $success = false;
+        if($request->filled('user_id') && $request->filled('post_id')){
+            $user = User::findOrFail(request()->user_id);
+            $post = Post::findOrFail(request()->user_id);
+            $user->favorites()->detach($post->id);
+            $success = true;
+        }
+        return [
+            "success" => $success,
+        ];
+    }
+
 }

@@ -38,3 +38,7 @@ Route::apiResource('posts', 'PostController');
 Route::apiResource('categories', 'CategoryController');
 Route::apiResource('videos', 'VideoController')->only(['index', 'show']);
 Route::apiResource('programs', 'ProgramController')->only(['index', 'show']);
+
+
+Route::post('favourite', 'PostController@favoritePost');
+Route::post('unfavourite', 'PostController@unFavoritePost');
