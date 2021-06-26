@@ -42,3 +42,4 @@ Route::apiResource('programs', 'ProgramController')->only(['index', 'show']);
 
 Route::post('favourite', 'PostController@favoritePost');
 Route::post('unfavourite', 'PostController@unFavoritePost');
+Route::get('my_favourites/{user}', 'PostController@getFavoritePosts'); //->middleware('auth');
