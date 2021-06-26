@@ -63,7 +63,7 @@ class PostController extends Controller
 
     public function getFavoritePosts(User $user)
     {
-       return $user->favorites()->get();
+       return ["data" => $user->favorites()->get()];
     }
 
 
