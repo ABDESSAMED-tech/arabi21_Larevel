@@ -39,7 +39,7 @@ class PostController extends Controller
         $success = false;
         if($request->filled('user_id') && $request->filled('post_id')){
             $user = User::findOrFail(request()->user_id);
-            $post = Post::findOrFail(request()->user_id);
+            $post = Post::findOrFail(request()->post_id);
             $user->favorites()->syncWithoutDetaching($post->id);
             $success = true;
         }
@@ -52,7 +52,7 @@ class PostController extends Controller
         $success = false;
         if($request->filled('user_id') && $request->filled('post_id')){
             $user = User::findOrFail(request()->user_id);
-            $post = Post::findOrFail(request()->user_id);
+            $post = Post::findOrFail(request()->post_id);
             $user->favorites()->detach($post->id);
             $success = true;
         }
