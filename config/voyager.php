@@ -144,7 +144,10 @@ return [
         ],
 
         'widgets' => [
-
+            \App\Widgets\VideoDimmer::class,
+            \App\Widgets\PostDimmer::class,
+            '\\TCG\\Voyager\\Widgets\\UserDimmer',
+            // VideoDimmer
         ],
 
     ],

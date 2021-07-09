@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css">
         <link rel="stylesheet" href="{{ voyager_asset('css/rtl.css') }}">
     @endif
-    <link rel="stylesheet" href="{{ voyager_asset('css/admin.css') }}">
+
     <!-- Few Dynamic Styles -->
     <style type="text/css">
         .voyager .side-menu .navbar-header {
@@ -43,6 +43,69 @@
         .voyager .breadcrumb a{
             color:{{ config('voyager.primary_color','#22A7F0') }};
         }
+
+        /* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #2ecc71;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2ecc71;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+.analytics-container{
+    display: none;
+}
+
     </style>
 
     @if(!empty(config('voyager.additional_css')))<!-- Additional CSS -->
