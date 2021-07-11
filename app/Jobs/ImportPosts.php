@@ -41,6 +41,7 @@ class ImportPosts implements ShouldQueue
                 "fetched" => true
             ];
             $batchJobs[] = new GetPostImage($id);
+            break;
         }
 
         DB::table('posts')->upsert($records, ["id", "title"]);
