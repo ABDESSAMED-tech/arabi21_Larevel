@@ -8,5 +8,6 @@ return [
     'key3' => env('YT_API_KEY3'),
     'local' => env('APP_LOCAL', "en"),
     'yt_search_api' => env('YT_SEARCH_API', 'https://youtube.googleapis.com/youtube/v3/search'),
-    'yt_playlist_api' => env('YT_PLAYLIST_API', 'https://youtube.googleapis.com/youtube/v3/playlistItems')
+    'yt_playlist_api' => env('YT_PLAYLIST_API', 'https://youtube.googleapis.com/youtube/v3/playlistItems'),
+    'rss' => env('RSS_BASE_URL', "https://arabi21.com/Rss/SectionNewsRSS?id="),
 ];
