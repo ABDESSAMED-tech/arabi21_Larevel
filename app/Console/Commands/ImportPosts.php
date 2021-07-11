@@ -24,7 +24,6 @@ class ImportPosts extends Command
                 continue;
             }
             JobsImportPosts::dispatch($f->get_items(), $category->id);
-            break;
         }
     }
 }
