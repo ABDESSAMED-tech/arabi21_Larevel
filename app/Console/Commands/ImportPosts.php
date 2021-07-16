@@ -23,7 +23,7 @@ class ImportPosts extends Command
             if($f->error){
                 continue;
             }
-            JobsImportPosts::dispatch($f->get_items(), $category->id);
+            JobsImportPosts::dispatchSync($f->get_items(), $category->id);
             break;
         }
     }
