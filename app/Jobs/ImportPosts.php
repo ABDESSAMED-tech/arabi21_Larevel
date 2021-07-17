@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Post;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -9,12 +10,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\DB;
 
 class ImportPosts implements ShouldQueue
 {
-    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $items;
     private $category;
@@ -27,11 +26,10 @@ class ImportPosts implements ShouldQueue
 
     public function handle()
     {
-        $records = [];
-        $batchJobs = [];
         foreach($this->items as $item){
             $id = $this->getPostId($item->get_permalink());
-            $records[] = [
+            Post::updateOrCreate(["id" => $id],
+            [
                 "id" => $id,
                 "title" => $item->get_title(),
                 "content" => $item->get_content(),
@@ -39,13 +37,9 @@ class ImportPosts implements ShouldQueue
                 "published_on" => $item->get_date('Y-m-d H:i:s'),
                 "category_id" => $this->category,
                 "fetched" => true
-            ];
-            $batchJobs[] = new GetPostImage($id);
-            break;
+            ]);
+            GetPostImage::dispatch($id);
         }
-
-        DB::table('posts')->upsert($records, ["id", "title"]);
-        Bus::batch($batchJobs)->dispatch();
     }
 
     private function getPostId($url){

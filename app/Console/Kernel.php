@@ -26,6 +26,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('youtube:fetch')->hourly();
         $schedule->command('youtube:process')->hourly();
+        $schedule->command('categories:import')->hourly();
+        $schedule->command('posts:import')->everyFifteenMinutes();
     }
 
     /**

@@ -21,7 +21,7 @@ class Post extends JsonResource
             'excerpt'=>$this->excerpt,
             'content'=>$this->content,
             'author'=>$this->author,
-            'image'=>$this->img,
+            'image'=>$this->formatted_img,
             'category'=> $this->category,
             'published_on'=>$this->published_on,
             'favourite' => $this->fav,

@@ -18,7 +18,6 @@ class GetPostImage implements ShouldQueue
 
     private $postId;
 
-    const BASE_URL = "https://arabi21.com/story/";
 
     public function __construct($postId)
     {
@@ -27,10 +26,14 @@ class GetPostImage implements ShouldQueue
 
     public function handle()
     {
-        $data = OpenGraph::fetch(self::BASE_URL . $this->postId);
+        $post = Post::select(['id', 'img'])->find($this->postId);
+        if(!$post || $post->img){
+            return;
+        }
+        $data = OpenGraph::fetch(config("crawler.post_base_url") . $post->id);
+
         if(isset($data['image'])){
-            Post::whereId($this->postId)
-            ->update(['img'=>$data['image']]);
+            $post->setAttribute('img', $data['image'])->save();
         }
     }
 }

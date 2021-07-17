@@ -24,7 +24,8 @@
         "shweshi/opengraph": "^1.1",
         "spatie/laravel-query-builder": "^3.4",
         "tcg/voyager": "^1.4",
-        "vedmant/laravel-feed-reader": "^1.5"
+        "vedmant/laravel-feed-reader": "^1.5",
+        "weidner/goutte": "^2.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

@@ -15,7 +15,7 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function getImgAttribute($value)
+    public function getFormattedImgAttribute($value)
     {
         if (Str::contains($value, "http")) {
             return $value;

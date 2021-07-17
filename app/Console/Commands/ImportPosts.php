@@ -17,14 +17,15 @@ class ImportPosts extends Command
 
     public function handle()
     {
-        $categories = Category::select('id')->get();
+        $categories = Category::select(['id', 'name'])
+        ->get();
         foreach($categories as $category){
-            $f = FeedReader::read(config('youtube-api.rss') . $category->id);
+            $f = FeedReader::read(config('crawler.rss.url') . $category->id);
             if($f->error){
                 continue;
             }
-            JobsImportPosts::dispatchSync($f->get_items(), $category->id);
-            break;
+            $this->info("Importing:\t" . count($f->get_items()) . "\tposts from: " . config('crawler.rss.url') . $category->id);
+            JobsImportPosts::dispatch($f->get_items(), $category->id);
         }
     }
 }

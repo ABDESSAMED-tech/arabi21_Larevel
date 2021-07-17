@@ -20,8 +20,8 @@ use Vedmant\FeedReader\Facades\FeedReader;
 */
 
 Route::get('/', function () {
-
-    return redirect("/api");
+    App\Jobs\GetPostImage::dispatchSync('785809');
+    // return redirect("/api");
 });
 Route::get('/schedule', function () {
     Artisan::queue('youtube:fetch');
